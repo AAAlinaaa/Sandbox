@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Book object that populates the library model.
  * Has three properties, title, author, and year (the book was first published in).
- * 
+ * @year	2016
  * @author Alina
  *
  */
