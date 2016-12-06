@@ -77,7 +77,7 @@ public class Book implements IPropertySource, Serializable {
 	
 	@Override
 	public String toString() {
-		return "Book [title=" + title + ", author=" + author + ", year=" + year + "]";
+		return "Book [ title = " + title + ", author = " + author + ", year = " + year + " ]";
 	}
 
 	@Override
