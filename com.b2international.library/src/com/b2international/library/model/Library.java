@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Library model class, contains a collection of book objects.
+ * @month	December
  * @year	2016
  * @author Alina
  */
