@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="sadas"
+         point="org.eclipse.ui.views">
+      <view
+            class="com.b2international.library.LibraryView"
+            icon="icons/books-stack.png"
+            id="com.b2international.library.librarytreeview"
+            name="Library view"
+            restorable="true">
+      </view>
+      <view
+            class="com.b2international.library.LibraryPropertiesView"
+            icon="icons/flower.png"
+            id="com.b2international.library.bookPropertiesTable"
+            name="Library Table View"
+            restorable="true">
+      </view>
+      
+      <view
+            class="com.b2international.library.TestTreeView"
+            icon="icons/tree-yellow.png"
+            id="com.b2international.library.swttree"
+            name="SWT Tree Example View"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="com.b2international.library.AddBookHandler"
+            description="Adds the specified book to the library"
+            id="com.b2international.library.addBook"
+            name="Add a book to the library">
+      </command>
+      <command
+            description="Removes the selected book from the library"
+            id="com.b2international.library.removeBook"
+            name="Remove this book from the library">
+      </command>
+      <command
+            defaultHandler="com.b2international.library.wizardpage.AddBookHandlerwithWizard"
+            description="Adds the specified book to the library with the help of a Wizard"
+            id="com.b2international.library.addBookWithWizard"
+            name="Add New Book With a Wizard">
+      </command>
+      <command
+            defaultHandler="com.b2international.library.alternativewizardpage.NewAddBookHandler"
+            description="Adds the specified book to the library with the help of a new Wizard"
+            id="com.b2international.library.newAddBook"
+            name="Add New Book With a Wizard">
+      </command>
+      <command
+            defaultHandler="com.b2international.library.databindingwizard.NewAddBookHandler"
+            description="Adds the specified book to the library with the help of a databinding Wizard"
+            id="com.b2international.library.databindingwizard.addBook"
+            name="Add New Book With Databingding Wizard">
+      </command>
+      <command
+            defaultHandler="com.b2international.library.SaveLibrary2JSONLHandler"
+            description="Saves the library to a file"
+            id="com.b2international.library.saveLibrary"
+            name="Save Library to File">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.main.menu">
+         <menu
+               id="saveLibrary"
+               label="Save"
+               tooltip="Save Library">
+            <command
+                  commandId="com.b2international.library.saveLibrary"
+                  icon="icons/floppyDisk.png"
+                  label="Save Library"
+                  style="push"
+                  tooltip="Save Library to a File">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:com.b2international.library.librarytreeview">
+         <command
+               commandId="com.b2international.library.removeBook"
+               icon="icons/book--minus.png"
+               label="Remove this book"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:com.b2international.library.librarytreeview">
+         <command
+               commandId="com.b2international.library.addBook"
+               icon="icons/book--plus.png"
+               label="Add a book to library"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:com.b2international.library.swttree">
+         <command
+               commandId="com.b2international.library.addBookWithWizard"
+               icon="icons/book--plus.png"
+               label="Add a book to library"
+               style="push">
+         </command>
+         <command
+               commandId="com.b2international.library.newAddBook"
+               icon="icons/books-stack.png"
+               label="Add a book to the library with the help of wizard"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:com.b2international.library.swttree">
+         <command
+               commandId="com.b2international.library.removeBook"
+               icon="icons/book--minus.png"
+               label="Remove this book"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:com.b2international.library.librarytreeview">
+         <command
+               commandId="com.b2international.library.databindingwizard.addBook"
+               icon="icons/books-stack.png"
+               label="Add New Book To Library"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar id="com.sample.example.toolbars.sampleToolbar">
+		    <command
+		          commandId="com.b2international.library.saveLibrary"
+		          icon="icons/floppyDisk.png"
+		          tooltip="Save Library"
+		          style="push"
+		          id="com.sample.example.toolbars.sampleCommand">
+		    </command>
+ 		</toolbar>
+    </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="com.b2international.library.RemoveBookHandler"
+            commandId="com.b2international.library.removeBook">
+      </handler>
+      <handler
+            class="com.b2international.library.wizardpage.AddBookHandlerwithWizard"
+            commandId="com.b2international.library.addBookWizard">
+      </handler>
+      <handler
+            class="com.b2international.library.alternativewizardpage.NewAddBookHandler"
+            commandId="com.b2international.library.alternativewizardpage.newAddBook">
+      </handler>
+      <handler
+            commandId="com.b2international.library.databindingwizard.addBook">
+      </handler>
+      <handler
+            commandId="com.b2international.library.saveLibrary">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="com.b2international.library.editor.BookEditor"
+            default="false"
+            id="com.b2international.library.bookeditor"
+            name="Book Editor">
+      </editor>
+      <editor
+            class="com.b2international.library.editor.BookFormEditor"
+            default="false"
+            id="com.b2international.library.bookeditorwithform"
+            name="Book Form Editor">
+      </editor>
+   </extension>
+</plugin>
