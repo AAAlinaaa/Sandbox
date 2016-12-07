@@ -5,8 +5,6 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.IFormPage;
 
-import com.b2international.library.Activator;
-
 public class BookFormEditor extends FormEditor{
 
 	private static final String id = "BOOK_FORM_EDITOR";
@@ -23,9 +21,8 @@ public class BookFormEditor extends FormEditor{
 	}
 
 	public void doSave(IProgressMonitor monitor) {
-		Activator.getDefault().getModel().notifyObservers();
-		LibrarySaver.performSave();
 		bookEditorPage.doSave(monitor);
+		LibrarySaver.performJSONSave();
 		editorDirtyStateChanged();
 	}
 

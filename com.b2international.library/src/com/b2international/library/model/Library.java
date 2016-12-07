@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Library model class, contains a collection of book objects.
  * @month	December
  * @year	2016
- * @author Alina
+ * @author 	Alina
  */
 public class Library implements Serializable {
 	
@@ -34,6 +34,17 @@ public class Library implements Serializable {
 	
 	public void initializeObservers() {
 		observers = new ArrayList<LibraryObserver>();
+	}
+	
+	public void updatetBook(Book oldBook, Book newBook) {
+		for (Book book : books) {
+			if(book.isTheSame(oldBook)) {
+				book.setTitle(newBook.getTitle());
+				book.setAuthor(newBook.getAuthor());
+				book.setYear(newBook.getYear());
+			}
+		}
+		notifyObservers();
 	}
 	
 	public void addBook(Book book) {
@@ -61,7 +72,7 @@ public class Library implements Serializable {
 	}
 	
 	public void setBooks(ArrayList<Book> books) {
-		this.books = books; 
+		this.books = books;
 	}
 	
 	public String getName() {

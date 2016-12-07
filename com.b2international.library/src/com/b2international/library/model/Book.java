@@ -75,6 +75,19 @@ public class Book implements IPropertySource, Serializable {
 		this.year = year;
 	}
 	
+	public boolean isTheSame(Object obj) {
+		if(obj instanceof Book)
+		{
+			Book book = (Book) obj;
+			boolean equals = this.title.equals(book.getTitle());
+			equals = equals && this.author.equals(book.author);
+			equals = equals && (this.year == book.getYear());
+			return equals;
+		}
+		else
+			return false;
+	}
+	
 	@Override
 	public String toString() {
 		return "Book [ title = " + title + ", author = " + author + ", year = " + year + " ]";

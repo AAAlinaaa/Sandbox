@@ -30,6 +30,7 @@ import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
+import com.b2international.library.Activator;
 import com.b2international.library.model.Book;
 
 public class BookEditorFormPage extends FormPage {
@@ -157,6 +158,7 @@ public class BookEditorFormPage extends FormPage {
 	private int noOfAuthorChanges = 0;
 	private int noOfYearChanges = 0;
 	private AbstractFormPart formPart;
+	private Book editorBook;
 
 	public BookEditorFormPage(FormEditor editor, String id, String title) {
 		super(editor, id, title);
@@ -187,7 +189,13 @@ public class BookEditorFormPage extends FormPage {
 	
 	@Override
 	public void doSave(IProgressMonitor monitor) {
+		Activator.getDefault().getModel().updatetBook(book, editorBook);
 		managedForm.commit(true);
+	}
+	
+	@Override
+	public void setFocus() {
+		titleText.setFocus();
 	}
 	
 	@Override
@@ -200,7 +208,7 @@ public class BookEditorFormPage extends FormPage {
 		GridLayout gl = new GridLayout(2, true);
 		gl.verticalSpacing = 20;
 		
-		Form form = this.getManagedForm().getForm().getForm(); 
+		Form form = this.getManagedForm().getForm().getForm();
 		form.setText(this.getPartName());
 		this.getEditor().getToolkit().decorateFormHeading(form);
 		
@@ -215,44 +223,44 @@ public class BookEditorFormPage extends FormPage {
 	}
 
 	private void createContents(Composite parentComposite) {
-		
+		editorBook = new Book(book.getTitle(), book.getAuthor(), book.getYear());
 		FormToolkit toolkit = new FormToolkit(parentComposite.getDisplay());
-		Section section = toolkit.createSection(parentComposite, Section.DESCRIPTION | Section.TITLE_BAR);
+		Section section = toolkit.createSection(parentComposite, Section.TITLE_BAR | Section.FOCUS_TITLE);
 		section.setLayoutData(GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).create());
 		
-		section.setDescription("Change the book's attributes.");
+		section.setText("Change the Book's Attributes");
 		sectionClient = toolkit.createComposite(section);
 		sectionClient.setLayout(GridLayoutFactory.fillDefaults().numColumns(2).create());
 		
 		toolkit.createLabel(sectionClient, "Title ", SWT.FILL);
-		titleText = toolkit.createText(sectionClient, book.getTitle()); 
+		titleText = toolkit.createText(sectionClient, editorBook.getTitle()); 
 		titleText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		toolkit.createLabel(sectionClient, "Author ");
-		authorText = toolkit.createText(sectionClient, book.getAuthor());
+		authorText = toolkit.createText(sectionClient, editorBook.getAuthor());
 		authorText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		toolkit.createLabel(sectionClient, "Year ");
-		String value = String.valueOf(book.getYear());
+		String value = String.valueOf(editorBook.getYear());
 		yearText = toolkit.createText(sectionClient, value);
 		yearText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		section.setClient(sectionClient);
 		DataBindingContext dataBindingContext = new DataBindingContext();
 		
-		IObservableValue<?> observableTitle = PojoProperties.value("title").observe(book);
+		IObservableValue<?> observableTitle = PojoProperties.value("title").observe(editorBook);
 		UpdateValueStrategy updateTitleStrategy = new UpdateValueStrategy();
 		updateTitleStrategy.setAfterConvertValidator(new TitleValidator());
 		dataBindingContext.bindValue(WidgetProperties.text(SWT.Modify).observe(titleText), observableTitle,
 				updateTitleStrategy, null);
 		
-		IObservableValue<?> observableAuthor = PojoProperties.value("author").observe(book);
+		IObservableValue<?> observableAuthor = PojoProperties.value("author").observe(editorBook);
 		UpdateValueStrategy updateAuthorStrategy = new UpdateValueStrategy();
 		updateAuthorStrategy.setAfterConvertValidator(new AuthorValidator());
 		dataBindingContext.bindValue(WidgetProperties.text(SWT.Modify).observe(authorText), observableAuthor,
 				updateAuthorStrategy, null);
 		
-		IObservableValue<?> observableYear = PojoProperties.value("year").observe(book);
+		IObservableValue<?> observableYear = PojoProperties.value("year").observe(editorBook);
 		UpdateValueStrategy updateYearStrategy = new UpdateValueStrategy();
 		updateYearStrategy.setAfterConvertValidator(new YearValidator());
 		

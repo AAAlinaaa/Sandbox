@@ -53,7 +53,7 @@ public class BookEditor extends EditorPart {
 	@Override
 	public void doSave(IProgressMonitor monitor) {
 		Activator.getDefault().getModel().notifyObservers();
-		LibrarySaver.performSave();
+		LibrarySaver.performSerialSave();
 	}
 
 	@Override
