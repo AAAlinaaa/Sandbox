@@ -9,6 +9,7 @@ import org.eclipse.core.databinding.conversion.IConverter;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.validation.IValidator;
 import org.eclipse.core.databinding.validation.ValidationStatus;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.dialogs.IMessageProvider;
@@ -20,8 +21,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.forms.AbstractFormPart;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.FormPage;
@@ -80,6 +81,7 @@ public class BookEditorFormPage extends FormPage {
 			
 			if(noOfYearChanges>0) {
 				setDirty(true);
+				managedForm.dirtyStateChanged();
 				getEditor().editorDirtyStateChanged();
 			}
 			noOfYearChanges++;
@@ -107,7 +109,8 @@ public class BookEditorFormPage extends FormPage {
 		public IStatus validate(Object value) {
 			if(noOfAuthorChanges>0) {
 				setDirty(true);
-				firePropertyChange(IEditorPart.PROP_DIRTY);
+				managedForm.dirtyStateChanged();
+				getEditor().editorDirtyStateChanged();
 			}
 			noOfAuthorChanges++;
 			
@@ -128,7 +131,8 @@ public class BookEditorFormPage extends FormPage {
 		public IStatus validate(Object value) {
 			if(noOfTitleChanges>0) {
 				setDirty(true);
-				firePropertyChange(IEditorPart.PROP_DIRTY);
+				managedForm.dirtyStateChanged();
+				getEditor().editorDirtyStateChanged();
 			}
 			noOfTitleChanges++;
 			
@@ -152,21 +156,21 @@ public class BookEditorFormPage extends FormPage {
 	private int noOfTitleChanges = 0;
 	private int noOfAuthorChanges = 0;
 	private int noOfYearChanges = 0;
-	private boolean dirty;
+	private AbstractFormPart formPart;
 
 	public BookEditorFormPage(FormEditor editor, String id, String title) {
 		super(editor, id, title);
+		formPart = new AbstractFormPart() {};
 	}
 
 	public void setDirty(boolean dirty) {
-		this.dirty = dirty;
-		this.getEditor().editorDirtyStateChanged();
+		managedForm.dirtyStateChanged();
+		formPart.markDirty();
 	}
 
 	@Override
 	public void init(IEditorSite site, IEditorInput input) {			
 		try {
-			dirty = false;
 			book = ((BookEditorInput)input).getBook();
 			setSite(site);
 			setInput(input);
@@ -178,13 +182,19 @@ public class BookEditorFormPage extends FormPage {
 	
 	@Override
 	public boolean isDirty() {
-		return dirty;
+		return managedForm.isDirty();
+	}
+	
+	@Override
+	public void doSave(IProgressMonitor monitor) {
+		managedForm.commit(true);
 	}
 	
 	@Override
 	protected void createFormContent(IManagedForm managedForm) {
 		this.managedForm = managedForm;
-	
+		formPart.initialize(managedForm);
+		managedForm.addPart(formPart);
 		super.createFormContent(managedForm);
 		Composite body = managedForm.getForm().getBody();
 		GridLayout gl = new GridLayout(2, true);

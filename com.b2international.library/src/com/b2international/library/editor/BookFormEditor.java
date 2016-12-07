@@ -10,32 +10,22 @@ import com.b2international.library.Activator;
 public class BookFormEditor extends FormEditor{
 
 	private static final String id = "BOOK_FORM_EDITOR";
-	private boolean dirty = false;
+	private IFormPage bookEditorPage;
 
 	@Override
 	protected void addPages() {
-		IFormPage bookEditorPage = new BookEditorFormPage(this, id, getTitle());
+		bookEditorPage = new BookEditorFormPage(this, id, getTitle());
 		try {
 			addPage(bookEditorPage);
 		} catch (PartInitException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void setDirty() {
-		dirty = true;
-	}
-	
-	@Override
-	public boolean isDirty() {
-			return dirty;
-	}
 
-	@Override
 	public void doSave(IProgressMonitor monitor) {
 		Activator.getDefault().getModel().notifyObservers();
 		LibrarySaver.performSave();
-		dirty = false;
+		bookEditorPage.doSave(monitor);
 		editorDirtyStateChanged();
 	}
 
