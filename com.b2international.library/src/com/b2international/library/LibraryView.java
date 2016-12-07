@@ -91,7 +91,12 @@ public class LibraryView extends ViewPart implements LibraryObserver, IDoubleCli
 				BookEditorInput input = new BookEditorInput(book);
 				try 
 				{
-					getViewSite().getPage().openEditor(input, ID_OF_THE_EDITOR);
+					if(getViewSite().getPage().getActiveEditor()==null) {
+						getViewSite().getPage().openEditor(input, ID_OF_THE_EDITOR);
+					}
+					else {
+						getViewSite().getPage().getActiveEditor().setFocus();
+					}
 				} 
 				catch (PartInitException e) {
 					e.printStackTrace();
