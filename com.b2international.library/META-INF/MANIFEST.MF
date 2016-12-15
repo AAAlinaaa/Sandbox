@@ -17,6 +17,13 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.forms;bundle-version="3.7.0",
  com.fasterxml.jackson.core.jackson-databind;bundle-version="2.4.5",
  com.fasterxml.jackson.core.jackson-core;bundle-version="2.4.5",
- com.fasterxml.jackson.core.jackson-annotations;bundle-version="2.4.5"
+ com.fasterxml.jackson.core.jackson-annotations;bundle-version="2.4.5",
+ org.eclipse.e4.core.di;bundle-version="1.6.1",
+ org.eclipse.e4.ui.workbench;bundle-version="1.4.0",
+ org.eclipse.e4.ui.di;bundle-version="1.1.100",
+ org.eclipse.e4.core.di.extensions;bundle-version="0.14.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
+Export-Package: com.b2international.library,
+ com.b2international.library.editor,
+ com.b2international.library.model

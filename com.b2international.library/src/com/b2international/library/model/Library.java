@@ -90,4 +90,13 @@ public class Library implements Serializable {
 	public void removeObserver(LibraryObserver observer) {
 		observers.remove(observer);
 	}
+	
+	@Override
+	public String toString() {
+		String answer = "The Library contains: \n";
+		for (Book book : books) {
+			answer += book.toString() + "\n";
+		}
+		return answer;
+	}
 }

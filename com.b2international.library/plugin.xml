@@ -8,7 +8,7 @@
             class="com.b2international.library.LibraryView"
             icon="icons/books-stack.png"
             id="com.b2international.library.librarytreeview"
-            name="Library view"
+            name="Library View"
             restorable="true">
       </view>
       <view
@@ -188,5 +188,29 @@
             id="com.b2international.library.bookeditorwithform"
             name="Book Form Editor">
       </editor>
+   </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.eclipse.e4.ui.workbench.swt.E4Application"
+            name="com.b2i.libraryRCP">
+         <property
+               name="appName"
+               value="com.b2i.libraryRCP">
+         </property>
+      </product>
+   </extension>
+   <extension
+         id="bookShelfProduct"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.eclipse.e4.ui.workbench.swt.E4Application"
+            name="BookShelf">
+         <property
+               name="appName"
+               value="BookShelf">
+         </property>
+      </product>
    </extension>
 </plugin>

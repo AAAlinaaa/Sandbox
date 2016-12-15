@@ -17,7 +17,6 @@ public class LibraryContentProvider implements ITreeContentProvider {
 	public Object[] getElements(Object inputElement) {
 		if(inputElement instanceof Library) {
 			Library library = (Library) inputElement;
-			System.out.println(library);
 		}
 		return getChildren(inputElement);
 	}

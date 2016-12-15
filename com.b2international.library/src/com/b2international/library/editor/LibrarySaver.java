@@ -25,6 +25,7 @@ public class LibrarySaver {
 
 	public static void performSerialSave() {
 		Library library = Activator.getDefault().getModel();
+		System.out.println(library.toString());
 		String rootAddress = ResourcesPlugin.getWorkspace().getRoot().getLocation().toString();
 		String filename = rootAddress + "/library.txt";
 		try {
