@@ -96,7 +96,10 @@ public class LibraryPart implements LibraryObserver, IDoubleClickListener {
 				System.out.println("Clicked on: "+ book);
 				
 				MPart part = partService.createPart("com.b2i.bookshelfrcp.partdescriptor.bookeditorpart");
-				MPartStack editorStack = (MPartStack)modelService.find("com.b2i.bookShelfRCP.partstack.sample", app);
+				//MPart part = partService.createPart("com.b2i.bookshelfrcp.partdescriptor.bookeditorform");
+				MPartStack editorStack = (MPartStack)modelService.find("com.b2i.bookshelfrcp.partstack.editorstack", app);
+				//MPartStack editorStack = (MPartStack)modelService.find("com.b2i.bookShelfRCP.partstack.sample", app);
+				
 				editorStack.getChildren().add(part);
 				partService.showPart(part, PartState.ACTIVATE);
 			}

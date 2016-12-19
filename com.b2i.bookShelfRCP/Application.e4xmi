@@ -5,7 +5,7 @@
       <children xsi:type="advanced:Perspective" xmi:id="_6wlLkcgZEeSyMNYR5xypkQ" elementId="com.b2i.bookShelfRCP.perspective.sample">
         <children xsi:type="basic:PartSashContainer" xmi:id="_6wlLksgZEeSyMNYR5xypkQ" elementId="com.b2i.bookShelfRCP.partsashcontainer.sample">
           <children xsi:type="basic:PartStack" xmi:id="_6wlLk8gZEeSyMNYR5xypkQ" elementId="com.b2i.bookShelfRCP.partstack.sample">
-            <children xsi:type="basic:Part" xmi:id="_To4cQL4MEeaQnofuKfsrsQ" elementId="com.b2i.bookshelfrcp.part.librarypart" contributionURI="bundleclass://com.b2i.bookShelfRCP/com.b2i.bookshelfrcp.parts.LibraryPart" label="Library Part">
+            <children xsi:type="basic:Part" xmi:id="_To4cQL4MEeaQnofuKfsrsQ" elementId="com.b2i.bookshelfrcp.part.librarypart" contributionURI="bundleclass://com.b2i.bookShelfRCP/com.b2i.bookshelfrcp.parts.LibraryPart" label="Library Part" closeable="true">
               <handlers xmi:id="_8RZIoMFREeatOZ3ytIto3g" elementId="com.b2i.bookshelfrcp.handler.removeCommand" contributionURI="bundleclass://com.b2i.bookShelfRCP/com.b2i.bookshelfrcp.handlers.RemoveBookHandler" command="_sUlBQME-EeatOZ3ytIto3g"/>
               <menus xmi:id="_ZhbpIMEvEeatOZ3ytIto3g" elementId="com.b2i.bookshelfrcp.menu.addbook" label="Add Book" iconURI="platform:/plugin/com.b2international.library/icons/book--plus.png" tooltip="Add New Book To Library">
                 <children xsi:type="menu:HandledMenuItem" xmi:id="_pcafIMEvEeatOZ3ytIto3g" elementId="com.b2i.bookshelfrcp.handledmenuitem.addbook" label="Add Book" iconURI="platform:/plugin/com.b2international.library/icons/book--plus.png" tooltip="Add a New Book To The Library" command="_pa8A0MEhEeatOZ3ytIto3g"/>
@@ -18,6 +18,14 @@
               </menus>
             </children>
           </children>
+          <children xsi:type="basic:PartSashContainer" xmi:id="_k06sMMN3Eea7YYWuhRpSGA" elementId="com.b2i.bookshelfrcp.partsashcontainer.0">
+            <children xsi:type="basic:PartStack" xmi:id="_K_d94MOHEea7YYWuhRpSGA" elementId="com.b2i.bookshelfrcp.partstack.0">
+              <children xsi:type="basic:Part" xmi:id="_laZX0MN3Eea7YYWuhRpSGA" elementId="com.b2i.bookshelfrcp.part.properties" contributionURI="bundleclass://com.b2i.bookShelfRCP/com.b2i.bookshelfrcp.parts.PropertiesPart" label="Properties" iconURI="platform:/plugin/com.b2i.bookShelfRCP/icons/application-detail.png" closeable="true"/>
+            </children>
+          </children>
+        </children>
+        <children xsi:type="basic:PartSashContainer" xmi:id="_o_VOQMXUEea_g4__DNIAKw" elementId="com.b2i.bookshelfrcp.partsashcontainer.1" horizontal="true">
+          <children xsi:type="basic:PartStack" xmi:id="_qhN3wMXUEea_g4__DNIAKw" elementId="com.b2i.bookshelfrcp.partstack.editorstack" accessibilityPhrase=""/>
         </children>
       </children>
     </children>
@@ -31,6 +39,7 @@
         <children xsi:type="menu:HandledMenuItem" xmi:id="_6wlLj8gZEeSyMNYR5xypkQ" elementId="com.b2i.bookShelfRCP.handleditem.about" label="About" command="_6wlLhsgZEeSyMNYR5xypkQ"/>
       </children>
     </mainMenu>
+    <sharedElements xsi:type="basic:Part" xmi:id="_C6Eh4MN4Eea7YYWuhRpSGA" elementId="org.eclipse.ui.views.PropertySheet" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Properties" iconURI="platform:/plugin/org.eclipse.ui.views//icons/full/eview16/prop_ps.gif" tooltip="ppp" closeable="true"/>
     <trimBars xmi:id="_6wlLlcgZEeSyMNYR5xypkQ" elementId="com.b2i.bookShelfRCP.trimbar.top">
       <children xsi:type="menu:ToolBar" xmi:id="_6wlLlsgZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.main.toolbar">
         <children xsi:type="menu:HandledToolItem" xmi:id="_6wlLl8gZEeSyMNYR5xypkQ" elementId="com.b2i.bookShelfRCP.handleditem.trimbar.top.open" iconURI="platform:/plugin/com.b2i.bookShelfRCP/icons/sample.png" command="_6wlLgMgZEeSyMNYR5xypkQ"/>
@@ -56,7 +65,8 @@
     <children xmi:id="_6wlLe8gZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
     <children xmi:id="_HxFHcMKkEeaG0NWcBBpi1Q" elementId="com.b2i.bookshelfrcp.bindingcontext.ineditorparts" name="In Editor Parts"/>
   </rootContext>
-  <descriptors xmi:id="_RzmvAMIlEea-Np1RSiQV7g" elementId="com.b2i.bookshelfrcp.partdescriptor.bookeditorpart" label="Book Editor Part" iconURI="platform:/plugin/com.b2international.library/src/com/b2international/library/book-open-text.png" allowMultiple="true" closeable="true" contributionURI="bundleclass://com.b2i.bookShelfRCP/com.b2i.bookshelfrcp.parts.EditorPart"/>
+  <descriptors xmi:id="_RzmvAMIlEea-Np1RSiQV7g" elementId="com.b2i.bookshelfrcp.partdescriptor.bookeditorpart" label="Book Editor Part" iconURI="platform:/plugin/com.b2international.library/src/com/b2international/library/book-open-text.png" bindingContexts="_HxFHcMKkEeaG0NWcBBpi1Q" allowMultiple="true" closeable="true" dirtyable="true" contributionURI="bundleclass://com.b2i.bookShelfRCP/com.b2i.bookshelfrcp.parts.EditorPart"/>
+  <descriptors xmi:id="_6Y158MNyEea7YYWuhRpSGA" elementId="com.b2i.bookshelfrcp.partdescriptor.bookeditorform" label="Book Editor Form" iconURI="platform:/plugin/com.b2international.library/icons/flower.png" closeable="true" contributionURI="bundleclass://com.b2international.library/com.b2international.library.editor.BookFormEditor"/>
   <commands xmi:id="_6wlLfMgZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.file.exit" commandName="quitCommand"/>
   <commands xmi:id="_6wlLgMgZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.file.open" commandName="openCommand"/>
   <commands xmi:id="_6wlLg8gZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.file.save" commandName="saveCommand"/>

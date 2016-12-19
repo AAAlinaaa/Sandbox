@@ -34,8 +34,8 @@ import com.b2international.library.Activator;
 import com.b2international.library.model.Book;
 
 public class BookEditorFormPage extends FormPage {
-	
-	private final class toYearConverter implements IConverter {
+/*	
+	private final class toYearConverter implements IConverter<String, Integer> {
 
 		@Override
 		public Object getFromType() {
@@ -48,16 +48,16 @@ public class BookEditorFormPage extends FormPage {
 		}
 
 		@Override
-		public Object convert(Object fromObject) {
+		public Integer convert(String fromObject) {
 			try {
-				return Integer.parseInt((String) fromObject);
+				return Integer.parseInt(fromObject);
 			} catch (NumberFormatException e) {
 				return 0;
 			}
 		}
 	}
 	
-	private final class fromYearConverter implements IConverter {
+	private final class fromYearConverter implements IConverter<Integer, String> {
 
 		@Override
 		public Object getFromType() {
@@ -70,15 +70,15 @@ public class BookEditorFormPage extends FormPage {
 		}
 
 		@Override
-		public Object convert(Object fromObject) {
-			Integer year = (Integer)fromObject;
+		public String convert(Integer fromObject) {
+			Integer year = fromObject;
 			return year.toString();
 		}
 	}
 	
-	private final class YearValidator implements IValidator {
+	private final class YearValidator implements IValidator<Integer> {
 		@Override
-		public IStatus validate(Object value) {
+		public IStatus validate(Integer year) {
 			
 			if(noOfYearChanges>0) {
 				setDirty(true);
@@ -87,7 +87,6 @@ public class BookEditorFormPage extends FormPage {
 			}
 			noOfYearChanges++;
 			
-			Integer year = (Integer) value;
 			Calendar now = Calendar.getInstance();
 			int currentYear = now.get(Calendar.YEAR);
 			int earliestYear = 1500;
@@ -104,10 +103,10 @@ public class BookEditorFormPage extends FormPage {
 		}
 	}
 
-	private final class AuthorValidator implements IValidator {
+	private final class AuthorValidator implements IValidator<String>{
 
 		@Override
-		public IStatus validate(Object value) {
+		public IStatus validate(String value) {
 			if(noOfAuthorChanges>0) {
 				setDirty(true);
 				managedForm.dirtyStateChanged();
@@ -126,10 +125,10 @@ public class BookEditorFormPage extends FormPage {
 		}
 	}
 
-	private final class TitleValidator implements IValidator {	
+	private final class TitleValidator implements IValidator<String> {	
 
 		@Override
-		public IStatus validate(Object value) {
+		public IStatus validate(String value) {
 			if(noOfTitleChanges>0) {
 				setDirty(true);
 				managedForm.dirtyStateChanged();
@@ -147,7 +146,7 @@ public class BookEditorFormPage extends FormPage {
 			return ValidationStatus.ok();
 		}
 	}
-	
+*/	
 	private Book book;
 	private IManagedForm managedForm;
 	private Text yearText;
@@ -164,7 +163,7 @@ public class BookEditorFormPage extends FormPage {
 		super(editor, id, title);
 		formPart = new AbstractFormPart() {};
 	}
-
+/*
 	public void setDirty(boolean dirty) {
 		managedForm.dirtyStateChanged();
 		formPart.markDirty();
@@ -248,28 +247,28 @@ public class BookEditorFormPage extends FormPage {
 		section.setClient(sectionClient);
 		DataBindingContext dataBindingContext = new DataBindingContext();
 		
-		IObservableValue<?> observableTitle = PojoProperties.value("title").observe(editorBook);
-		UpdateValueStrategy updateTitleStrategy = new UpdateValueStrategy();
+		IObservableValue<String> observableTitle = PojoProperties.value("title", String.class).observe(editorBook);
+		UpdateValueStrategy<String,String> updateTitleStrategy = new UpdateValueStrategy<String,String>();
 		updateTitleStrategy.setAfterConvertValidator(new TitleValidator());
-		dataBindingContext.bindValue(WidgetProperties.text(SWT.Modify).observe(titleText), observableTitle,
+		dataBindingContext.bindValue(WidgetProperties.textText(SWT.Modify).observe(titleText), observableTitle,
 				updateTitleStrategy, null);
 		
-		IObservableValue<?> observableAuthor = PojoProperties.value("author").observe(editorBook);
-		UpdateValueStrategy updateAuthorStrategy = new UpdateValueStrategy();
+		IObservableValue<String> observableAuthor = PojoProperties.value("author", String.class).observe(editorBook);
+		UpdateValueStrategy<String, String> updateAuthorStrategy = new UpdateValueStrategy<String, String>();
 		updateAuthorStrategy.setAfterConvertValidator(new AuthorValidator());
-		dataBindingContext.bindValue(WidgetProperties.text(SWT.Modify).observe(authorText), observableAuthor,
+		dataBindingContext.bindValue(WidgetProperties.textText(SWT.Modify).observe(authorText), observableAuthor,
 				updateAuthorStrategy, null);
 		
-		IObservableValue<?> observableYear = PojoProperties.value("year").observe(editorBook);
-		UpdateValueStrategy updateYearStrategy = new UpdateValueStrategy();
+		IObservableValue<Integer> observableYear = PojoProperties.value("year", Integer.class).observe(editorBook);
+		UpdateValueStrategy<String, Integer> updateYearStrategy = new UpdateValueStrategy<String, Integer>();
 		updateYearStrategy.setAfterConvertValidator(new YearValidator());
 		
 		updateYearStrategy.setConverter(new toYearConverter());
-		UpdateValueStrategy updateYearFieldStrategy = new UpdateValueStrategy();
+		UpdateValueStrategy<Integer, String> updateYearFieldStrategy = new UpdateValueStrategy<Integer, String>();
 		updateYearFieldStrategy.setConverter(new fromYearConverter());
 		
-		dataBindingContext.bindValue(WidgetProperties.text(SWT.Modify).observe(yearText), observableYear,
+		dataBindingContext.bindValue(WidgetProperties.textText(SWT.Modify).observe(yearText), observableYear,
 				updateYearStrategy, updateYearFieldStrategy);
 	}
-
+*/
 }
